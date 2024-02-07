@@ -11,12 +11,12 @@ class Entity {
     return this.health > 0;
   }
 
-  getHealth() {
-    return this.health;
-  }
-
-  attack(damage, target) {
-    target.health -= damage;
+  attack(damage) {
+    if (checkChance(this.hitChance)) {
+      return damage;
+    } else {
+      return 0;
+    }
   }
 
   takeDamage(damage) {
