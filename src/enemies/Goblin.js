@@ -19,7 +19,16 @@ class Goblin extends Enemy {
     super("Goblin Raider", 50, 5, 0.8);
   }
 
-  isHitTwice() {
+  attack() {
+    const damage = this.damage;
+    const hitTwice = this.isHitEnemyTwice();
+    if (hitTwice) {
+      return damage * 2;
+    }
+    return damage;
+  }
+
+  isHitEnemyTwice() {
     const hitTwice = checkChance(0.2);
     return hitTwice;
   }
