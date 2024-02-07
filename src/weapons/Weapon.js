@@ -5,6 +5,8 @@ class Weapon {
   }
 
   attack() {
-    console.log(`Attacking with ${this.name}`);
+    return this.damage;
   }
 }
+
+export default Weapon;
