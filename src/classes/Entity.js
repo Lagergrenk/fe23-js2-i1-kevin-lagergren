@@ -1,7 +1,10 @@
 class Entity {
-  constructor(name, health) {
+  constructor(name, maxHealth, damage, hitChance) {
     this.name = name;
-    this.health = health;
+    this.maxHealth = maxHealth;
+    this.health = maxHealth;
+    this.damage = damage;
+    this.hitChance = hitChance;
   }
 
   isAlive() {
@@ -14,5 +17,12 @@ class Entity {
 
   attack(damage, target) {
     target.health -= damage;
+  }
+
+  takeDamage(damage) {
+    this.health -= damage;
+    if (this.health < 0) {
+      this.health = 0;
+    }
   }
 }
