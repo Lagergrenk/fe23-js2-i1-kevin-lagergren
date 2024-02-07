@@ -24,3 +24,5 @@ class Goblin extends Enemy {
     return hitTwice;
   }
 }
+
+export { Goblin };

@@ -29,3 +29,5 @@ class UndeadWarrior extends Enemy {
     }
   }
 }
+
+export { UndeadWarrior };

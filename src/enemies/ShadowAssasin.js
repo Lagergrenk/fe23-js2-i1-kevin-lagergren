@@ -15,3 +15,5 @@ class ShadowAssasin extends Enemy {
     super("Shadow Assasin", 60, 40, 0.95);
   }
 }
+
+export { ShadowAssasin };

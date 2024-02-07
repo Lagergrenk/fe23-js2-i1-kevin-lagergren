@@ -15,3 +15,5 @@ class ArcaneConstruct extends Enemy {
     super("Arcane Construct", 150, 20, 0.85);
   }
 }
+
+export { ArcaneConstruct };
