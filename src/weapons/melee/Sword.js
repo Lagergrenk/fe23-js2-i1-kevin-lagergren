@@ -18,8 +18,10 @@ class Sword extends Weapon {
     return actualDamage;
   }
 
-  bleed() {
+  isBleed() {
     const isBleed = Math.random() < 0.1;
     return isBleed;
   }
 }
+
+export default Sword;

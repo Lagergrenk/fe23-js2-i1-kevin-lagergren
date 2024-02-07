@@ -18,7 +18,7 @@ class Axe extends Weapon {
     return actualDamage;
   }
 
-  stun() {
+  isStunned() {
     const isStunned = Math.random() < 0.1;
     return isStunned;
   }
