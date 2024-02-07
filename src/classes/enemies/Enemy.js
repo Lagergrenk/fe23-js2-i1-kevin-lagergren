@@ -7,17 +7,13 @@ class Enemy extends Entity {
     super(name, maxHealth, damage, hitChance);
   }
 
-  attack(target) {
+  attack() {
     if (checkChance(this.hitChance)) {
       return this.damage;
     } else {
       return 0;
     }
   }
-
-  isAlive() {
-    return this.health > 0;
-  }
 }
 
-export default Enemy;
+export { Enemy };
