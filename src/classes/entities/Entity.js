@@ -1,3 +1,5 @@
+import { checkChance } from "../../utils/utils.js";
+
 class Entity {
   constructor(name, maxHealth, damage, hitChance) {
     this.name = name;
