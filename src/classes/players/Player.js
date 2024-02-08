@@ -2,8 +2,8 @@ import { Entity } from "../entities/Entity.js";
 import { checkChance } from "../../utils/utils.js";
 
 class Player extends Entity {
-  constructor(name, maxHealth, damage, hitChance) {
-    super(name, maxHealth, damage, hitChance);
+  constructor(name, maxHealth, damage, hitChance, image) {
+    super(name, maxHealth, damage, hitChance, image);
     this.critChance = 0.2;
     this.level = 1;
     this.weapon = null;
