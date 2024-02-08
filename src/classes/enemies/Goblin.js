@@ -16,7 +16,8 @@ import { checkChance } from "../../utils/utils.js";
 
 class Goblin extends Enemy {
   constructor() {
-    super("Goblin Raider", 50, 5, 0.8);
+    const imagePath = "../../../assets/images/enemies/goblin.webp";
+    super("Goblin Raider", 50, 5, 0.8, imagePath);
   }
 
   attack() {

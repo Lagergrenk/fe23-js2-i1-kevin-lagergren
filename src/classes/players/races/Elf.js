@@ -2,7 +2,8 @@ import { Player } from "../Player.js";
 
 class Elf extends Player {
   constructor() {
-    super("Elf", 80, 60, 0.9);
+    const imagePath = "../../../assets/images/elf-front-facing.webp";
+    super("Elf", 80, 60, 0.9, imagePath);
   }
 }
 
