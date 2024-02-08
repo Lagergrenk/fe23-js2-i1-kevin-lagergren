@@ -4,6 +4,17 @@
   box-sizing: border-box;
 }
 
+/* Global variables */
+:root {
+  --primary-color: #8b4513; /* Dark wood or leather color */
+  --background-color-trans: rgba(
+    0,
+    0,
+    0,
+    0.7
+  ); /* Dark wood or leather-like semi-transparent background */
+}
+
 .btn {
   background-color: rgba(
     139,
@@ -69,6 +80,9 @@ body {
   font-size: 3rem;
   color: #f4ecd8;
   text-shadow: 2px 2px 4px #000000;
+  background-color: var(--background-color-trans);
+  padding: 10px;
+  border-radius: 5px;
 }
 .race-container {
   grid-area: raceButtons;
@@ -114,6 +128,9 @@ body {
   font-size: 1.5rem;
   color: #f4ecd8;
   text-shadow: 2px 2px 4px #000000;
+  background-color: var(--background-color-trans);
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .stats-container {
