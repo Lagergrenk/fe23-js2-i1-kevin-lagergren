@@ -12,7 +12,9 @@ import { Enemy } from "./Enemy.js";
 
 class ElementalMage extends Enemy {
   constructor() {
-    super("Elemental Mage", 80, 30, 0.9);
+    const imagePath =
+      "../../../assets/images/enemies/elemental-mage-front-facing.webp";
+    super("Elemental Mage", 80, 30, 0.9, imagePath);
   }
 
   takeDamage(damage) {

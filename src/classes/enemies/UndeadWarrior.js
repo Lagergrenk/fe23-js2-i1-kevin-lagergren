@@ -16,7 +16,9 @@ import { checkChance } from "../utils/utils.js";
 
 class UndeadWarrior extends Enemy {
   constructor() {
-    super("Undead Warrior", 120, 10, 0.5);
+    const imagePath =
+      "../../../assets/images/enemies/undead-warrior-front-facing.webp";
+    super("Undead Warrior", 120, 10, 0.5, imagePath);
   }
 
   takeDamage(damage) {

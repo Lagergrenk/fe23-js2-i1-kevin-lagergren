@@ -12,7 +12,9 @@ import { Enemy } from "./Enemy.js";
 
 class ForestTroll extends Enemy {
   constructor() {
-    super("Forest Troll", 200, 25, 0.75);
+    const imagePath =
+      "../../../assets/images/enemies/forest-troll-front-facing.webp";
+    super("Forest Troll", 200, 25, 0.75, imagePath);
   }
 
   regeneration() {

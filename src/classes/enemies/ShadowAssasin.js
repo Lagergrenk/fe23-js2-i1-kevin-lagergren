@@ -12,11 +12,9 @@ import { Enemy } from "./Enemy.js";
 
 class ShadowAssasin extends Enemy {
   constructor() {
-    super("Shadow Assasin", 60, 40, 0.95);
-  }
-
-  shadowStep() {
-    Math.random() < 0.3 ? true : false;
+    const imagePath =
+      "../../../assets/images/enemies/shadow-assasin-front-facing.webp";
+    super("Shadow Assasin", 60, 40, 0.95, imagePath);
   }
 }
 
