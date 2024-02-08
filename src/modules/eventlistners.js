@@ -5,17 +5,27 @@ import { Gnome } from "../classes/players/races/Gnome.js";
 
 const raceButton = document.querySelectorAll(".race-container");
 const playerImage = document.querySelector("#player");
+const createButton = document.querySelector(".submit-button");
 
-const defaultChoice = new Human();
-playerImage.src = defaultChoice.image;
-playerImage.alt = "Human";
-changeStats(defaultChoice);
-
-raceButton.forEach((button) => {
-  button.addEventListener("click", (e) => {
-    const player = playerChoice(e);
+function initEventListeners() {
+  const defaultChoice = new Human();
+  playerImage.src = defaultChoice.image;
+  playerImage.alt = "Human";
+  changeStats(defaultChoice);
+  raceButton.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const player = playerChoice(e);
+    });
   });
-});
+
+  createButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    const playerName = document.querySelector("#player-name").value;
+    const playerRace = document.querySelector("#player").alt.toLowerCase();
+    console.log("playerName = " + playerName);
+    console.log("playerRace = " + playerRace);
+  });
+}
 
 function playerChoice(e) {
   let player;
@@ -57,3 +67,5 @@ function changeStats(player) {
   playerStats[2].textContent = `Damage: ${player.damage}`;
   playerStats[3].textContent = `Hitchance: ${player.hitChance * 100}%`;
 }
+
+export { initEventListeners };
