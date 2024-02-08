@@ -12,11 +12,55 @@
   <body>
     <div class="game-wrapper">
       <div class="game-container">
-        <div class="info" id="enemy-info">enemy info</div>
-        <div class="sprite" id="enemy-sprite">enemy sprite</div>
+        <div class="info" id="enemy-info">
+          <div class="name" id="enemy-name">
+            <h1>Enemy Name</h1>
+          </div>
+          <div class="health-bar-container" id="enemy-health-bar-container">
+            <progress
+              class="health-bar"
+              id="enemy-health-bar"
+              max="100"
+              value="70"
+            ></progress>
+            <h1 id="enemy-health">70/100</h1>
+          </div>
+        </div>
+        <div class="sprite" id="enemy-sprite">
+          <figure class="image-container">
+            <img
+              src="../assets/images/gnome-front-view.webp"
+              alt="enemy"
+              class="enemy-sprite-image"
+            />
+            <!-- Sprite for enemy generated through js-->
+          </figure>
+        </div>
 
-        <div class="info" id="player-info">Player info</div>
-        <div class="sprite" id="player-sprite">PLayer sprite</div>
+        <div class="info" id="player-info">
+          <div class="name" id="player-name">
+            <h1>Player Name</h1>
+          </div>
+          <div class="health-bar-container" id="player-health-bar-container">
+            <progress
+              class="health-bar"
+              id="player-health-bar"
+              max="100"
+              value="70"
+            ></progress>
+            <h1 id="player-health">70/100</h1>
+          </div>
+        </div>
+        <div class="sprite" id="player-sprite">
+          <figure class="image-container">
+            <img
+              src="../assets/images/gnome-back-view.webp"
+              alt="player"
+              class="player-sprite-image"
+            />
+            <!-- Sprite for player generated through js-->
+          </figure>
+        </div>
 
         <div class="chat-container">
           <div class="chat" id="chat">
