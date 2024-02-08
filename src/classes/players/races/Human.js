@@ -1,5 +1,13 @@
 import { Player } from "../Player.js";
 
+/*
+ * Class representing a Human.
+ * Human
+ * maxHealth: 100
+ * attack: 60
+ * hitChance: 0.9
+ */
+
 class Human extends Player {
   constructor() {
     const imagePath =

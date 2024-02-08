@@ -1,6 +1,6 @@
 import { Player } from "../Player.js";
 
-/**
+/*
  * Class representing a Dwarf.
  * Dwarf
  * maxHealth: 100

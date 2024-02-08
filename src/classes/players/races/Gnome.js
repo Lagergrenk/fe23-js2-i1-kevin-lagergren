@@ -1,5 +1,13 @@
 import { Player } from "../Player.js";
 
+/*
+ * Class representing a Gnome.
+ * Gnome
+ * maxHealth: 60
+ * attack: 40
+ * hitChance: 0.8
+ */
+
 class Gnome extends Player {
   constructor() {
     const imagePath =
