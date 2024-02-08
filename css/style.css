@@ -4,44 +4,23 @@
   box-sizing: border-box;
 }
 
-.start-game {
-  display: flex;
-  justify-content: center;
-}
-.start-game > button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 20px;
-  background-color: #414141;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-.start-game > button:hover {
-  background-color: #45a049;
-}
 .game-wrapper {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
-  height: 800px;
+  align-items: center;
 }
+
 .game-container {
-  background-color: aquamarine;
-
-  height: 800px;
-  width: 1000px;
-
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 0.5fr 1fr;
   grid-template-rows: 1fr 1fr 0.8fr;
   grid-template-areas:
-    "enemy-info enemy-sprite"
-    "player-info player-sprite"
-    "chat-container chat-container";
-}
-
-.info {
+    "enemy-info enemy-info enemy-sprite"
+    "player-sprite player-info player-info "
+    "chat-container chat-container chat-container";
+  background-color: aquamarine;
+  width: 1000px;
+  height: 800px;
 }
 
 #enemy-info {
@@ -53,17 +32,28 @@
   background-color: blue;
   grid-area: player-info;
 }
+
 #enemy-sprite {
   background-color: lightcoral;
   grid-area: enemy-sprite;
 }
+
 #player-sprite {
   background-color: lightblue;
   grid-area: player-sprite;
 }
 
-.sprite {
-}
 .chat-container {
   grid-area: chat-container;
+  background-color: lightgray;
+
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+
+  grid-template-areas: "chat options-container";
+}
+
+.options-container {
+  grid-area: options-container;
+  background-color: lightgreen;
 }
