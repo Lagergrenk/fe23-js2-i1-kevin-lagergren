@@ -1,3 +1,5 @@
+import { GameEngine } from "./gameEngine.js";
+
 import { Dwarf } from "../classes/players/races/Dwarf.js";
 import { Elf } from "../classes/players/races/Elf.js";
 import { Human } from "../classes/players/races/Human.js";
@@ -5,7 +7,7 @@ import { Gnome } from "../classes/players/races/Gnome.js";
 
 const raceButton = document.querySelectorAll(".race-container");
 const playerImage = document.querySelector("#player");
-const createButton = document.querySelector(".submit-button");
+const form = document.querySelector(".player-name form");
 
 function initEventListeners() {
   const defaultChoice = new Human();
@@ -18,12 +20,14 @@ function initEventListeners() {
     });
   });
 
-  createButton.addEventListener("click", (e) => {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
     const playerName = document.querySelector("#player-name").value;
     const playerRace = document.querySelector("#player").alt.toLowerCase();
     console.log("playerName = " + playerName);
     console.log("playerRace = " + playerRace);
+
+    window.location.href = "../../pages/game.html";
   });
 }
 

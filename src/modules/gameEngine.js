@@ -1,49 +1,59 @@
 class GameEngine {
-  constructor(player, enemy) {
+  constructor(player, enemy, updateUI) {
     this.player = player;
     this.enemy = enemy;
     this.isPlayerTurn = true;
     this.isGameOver = false;
+    this.updateUI = updateUI;
   }
 
   startGame() {
-    this.gameLoop();
+    this.nextTurn();
   }
 
-  gameLoop() {
-    while (!this.isGameOver) {
-      if (this.isPlayerTurn) {
-        this.playerTurn();
-      } else {
-        this.enemyTurn();
-      }
-      this.checkGameOver();
-      this.isPlayerTurn = !this.isPlayerTurn;
+  nextTurn() {
+    if (this.isGameOver) {
+      this.endGame();
+      return;
     }
-  }
 
-  // TODO : Implement the playerTurn (ATTACK, REST, EQUIP WEAPON)
-  playerTurn() {
-    const damage = this.player.attack(this.player.damage);
-    this.enemy.takeDamage(damage);
-  }
-
-  // Simple enemy turn, just attacks the player
-  enemyTurn() {
-    const damage = this.enemy.attack(this.enemy.damage);
-    if (damage > 0) {
-      this.player.takeDamage(damage);
+    if (this.isPlayerTurn) {
+      this.playerTurn();
     } else {
-      //TODO: Implement the enemy missed message
+      setTimeout(() => this.enemyTurn(), 1000);
     }
+
+    this.isPlayerTurn = !this.isPlayerTurn;
+    setTimeout(() => this.nextTurn(), 2000);
+  }
+
+  playerTurn() {
+    const damage = this.player.attack();
+    this.enemy.takeDamage(damage);
+    this.checkGameOver();
+    this.updateUI();
+  }
+
+  enemyTurn() {
+    const damage = this.enemy.attack();
+    this.player.takeDamage(damage);
+    this.checkGameOver();
+    this.updateUI();
   }
 
   checkGameOver() {
-    if (!this.player.isAlive()) {
-      this.isGameOver = true;
-    } else if (!this.enemy.isAlive()) {
+    if (!this.player.isAlive() || !this.enemy.isAlive()) {
       this.isGameOver = true;
     }
+  }
+
+  endGame() {
+    if (!this.player.isAlive()) {
+      console.log("Game Over. Player lost.");
+    } else if (!this.enemy.isAlive()) {
+      console.log("Game Over. Player won!");
+    }
+    this.updateUI(true);
   }
 }
 
