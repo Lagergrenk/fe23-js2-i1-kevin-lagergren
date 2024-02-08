@@ -1,4 +1,3 @@
-import { Goblin } from "./classes/enemies/Goblin.js";
+import { initEventListeners } from "./modules/eventlistners.js";
 
-const goblin = new Goblin();
-console.log(goblin);
+document.addEventListener("DOMContentLoaded", initEventListeners);
