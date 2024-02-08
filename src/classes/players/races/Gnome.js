@@ -10,9 +10,24 @@ import { Player } from "../Player.js";
 
 class Gnome extends Player {
   constructor() {
-    const imagePath =
+    const backImagePath =
+      "../../../../assets/images/player/gnome-away-facing.webp";
+    const frontImagePath =
       "../../../../assets/images/player/gnome-front-facing.webp";
-    super("Gnome", 60, 40, 0.8, imagePath);
+    super("Gnome", 60, 40, 0.8, frontImagePath);
+  }
+
+  // Special attack heals for 20 health
+  specialAttack() {
+    const healAmount = 20;
+    this.health += healAmount;
+
+    if (this.health > this.maxHealth) {
+      this.health = this.maxHealth;
+    }
+    return {
+      message: "Gnome heals for 20 health",
+    };
   }
 }
 

@@ -10,9 +10,19 @@ import { Player } from "../Player.js";
 
 class Dwarf extends Player {
   constructor() {
-    const imagePath =
+    const backImagePath =
+      "../../../../assets/images/player/dwarf-away-facing.webp";
+    const frontImagePath =
       "../../../../assets/images/player/dwarf-front-facing.webp";
-    super("Dwarf", 100, 40, 0.8, imagePath);
+    super("Dwarf", 100, 40, 0.8, frontImagePath);
+  }
+
+  // Sturdy blow deals 1.5x damage and has a 10% less hit chance
+  specialAttack() {
+    return {
+      damage: this.damage * 1.5,
+      hitChance: this.hitChance * 0.1,
+    };
   }
 }
 

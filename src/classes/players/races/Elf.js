@@ -9,8 +9,20 @@ import { Player } from "../Player.js";
  */
 class Elf extends Player {
   constructor() {
-    const imagePath = "../../../../assets/images/player/elf-front-facing.webp";
-    super("Elf", 80, 60, 0.9, imagePath);
+    const backImagePath =
+      "../../../../assets/images/player/elf-away-facing.webp";
+    const frontImagePath =
+      "../../../../assets/images/player/elf-front-facing.webp";
+    super("Elf", 80, 60, 0.9, frontImagePath);
+  }
+
+  // Special attack deals 2-4x damage
+  specialAttack() {
+    const hits = Math.floor(Math.random() * 3) + 2;
+    return {
+      damage: this.damage * hits,
+      hitChance: this.hitChance,
+    };
   }
 }
 
