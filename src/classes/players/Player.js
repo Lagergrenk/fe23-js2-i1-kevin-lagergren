@@ -30,15 +30,6 @@ class Player extends Entity {
   rest() {
     this.health = this.maxHealth;
   }
-
-  equipWeapon(weapon) {
-    if (this.weapon !== null) {
-      return;
-    } else {
-      this.weapon = weapon;
-      this.damage += weapon.damage;
-    }
-  }
 }
 
 export { Player };
