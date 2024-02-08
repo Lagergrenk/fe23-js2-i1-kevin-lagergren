@@ -3,3 +3,141 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.btn {
+  background-color: rgba(
+    139,
+    69,
+    19,
+    0.7
+  ); /* Dark wood or leather-like semi-transparent background */
+  color: #f4ecd8; /* Parchment-like text color */
+  border: 2px solid #8b4513; /* Dark wood or leather border */
+  padding: 10px 20px;
+  width: 90px;
+  font-size: 16px;
+  font-family: "Times New Roman", serif; /* A font that gives a hand-crafted feel */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  display: inline-block;
+  margin: 5px;
+  border-radius: 5px; /* Slightly rounded corners for a worn look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: rgba(
+    139,
+    69,
+    19,
+    0.85
+  ); /* Darken the background slightly on hover/focus for feedback */
+  color: #fff; /* Brighter text color for contrast */
+  border-color: #a0522d; /* Lighten the border for a hover effect */
+  transform: translateY(-2px); /* Slight raise effect on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Increase shadow for 3D effect */
+}
+
+body {
+  display: grid;
+  height: 100vh;
+
+  grid-template-rows: 0.5fr 2fr 0.5fr;
+  grid-template-columns: 1fr 2fr 1fr;
+
+  grid-template-areas:
+    "header header header"
+    "raceButtons playerImage stats"
+    ". playerName .";
+
+  background-image: url("../assets/images/background-image.webp");
+  background-size: cover; /* Cover the entire element */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+}
+
+.header {
+  grid-area: header;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 3rem;
+  color: #f4ecd8;
+  text-shadow: 2px 2px 4px #000000;
+}
+.race-container {
+  grid-area: raceButtons;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("../assets/images/parchment-paper.webp");
+  background-size: cover; /* Cover the entire element */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+}
+
+.player-container {
+  grid-area: playerImage;
+}
+
+.player-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-image img {
+  max-width: 700px;
+  max-height: 700px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.player-name {
+  grid-area: playerName;
+  display: flex;
+  justify-content: center;
+}
+.player-name form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #f4ecd8;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.stats-container {
+  grid-area: stats;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../assets/images/parchment-paper.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.stats h2 p {
+  margin: 5px;
+}
+
+.stats p {
+  margin: 5px;
+}
