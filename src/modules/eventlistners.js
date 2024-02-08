@@ -18,25 +18,25 @@ function playerChoice(e) {
   switch (e.target.id) {
     case "dwarf":
       player = new Dwarf();
-      playerImage.src = "../assets/images/dwarf-front-facing.webp";
+      playerImage.src = "./assets/images/dwarf-front-facing.webp";
       playerImage.alt = "Dwarf";
       changeStats(player);
       break;
     case "elf":
       player = new Elf();
-      playerImage.src = "../assets/images/elf-front-facing.webp";
+      playerImage.src = "./assets/images/elf-front-facing.webp";
       playerImage.alt = "Elf";
       changeStats(player);
       break;
     case "human":
       player = new Human();
-      playerImage.src = "../assets/images/human-front-facing.webp";
+      playerImage.src = "./assets/images/human-front-facing.webp";
       playerImage.alt = "Human";
       changeStats(player);
       break;
     case "gnome":
       player = new Gnome();
-      playerImage.src = "../assets/images/gnome-front-facing.webp";
+      playerImage.src = "./assets/images/gnome-front-facing.webp";
       playerImage.alt = "Gnome";
       changeStats(player);
       break;
