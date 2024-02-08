@@ -6,6 +6,11 @@ import { Gnome } from "../classes/players/races/Gnome.js";
 const raceButton = document.querySelectorAll(".race-container");
 const playerImage = document.querySelector("#player");
 
+const defaultChoice = new Human();
+playerImage.src = defaultChoice.image;
+playerImage.alt = "Human";
+changeStats(defaultChoice);
+
 raceButton.forEach((button) => {
   button.addEventListener("click", (e) => {
     const player = playerChoice(e);
