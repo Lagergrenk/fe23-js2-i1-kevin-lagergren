@@ -1,12 +1,13 @@
 import { checkChance } from "../../utils/utils.js";
 
 class Entity {
-  constructor(name, maxHealth, damage, hitChance) {
+  constructor(name, maxHealth, damage, hitChance, image) {
     this.name = name;
     this.maxHealth = maxHealth;
     this.health = maxHealth;
     this.damage = damage;
     this.hitChance = hitChance;
+    this.image = image;
   }
 
   isAlive() {
