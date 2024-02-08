@@ -10,7 +10,8 @@ import { Player } from "../Player.js";
 
 class Dwarf extends Player {
   constructor() {
-    const imagePath = "../../../assets/images/player/dwarf-front-facing.webp";
+    const imagePath =
+      "../../../../assets/images/player/dwarf-front-facing.webp";
     super("Dwarf", 100, 40, 0.8, imagePath);
   }
 }
