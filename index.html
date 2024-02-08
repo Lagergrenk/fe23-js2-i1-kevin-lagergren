@@ -11,27 +11,22 @@
   </head>
   <body>
     <div class="start-game">
-      <button id="start-game">Start Game</button>
-    </div>
-    <div class="game-wrapper">
-      <div class="game-container">
-        <div class="info" id="enemy-info">enemy info</div>
-        <div class="sprite" id="enemy-sprite">enemy sprite</div>
+      <h1>Turn base fighting game</h1>
+      <form action="">
+        <label for="player-name">Player Name</label>
+        <input type="text" id="player-name" name="player-name" />
 
-        <div class="info" id="player-info">Player info</div>
-        <div class="sprite" id="player-sprite">PLayer sprite</div>
-
-        <div class="chat-container">
-          <div class="chat" id="chat">
-            <h1 clas="chat-message">ChatChatChatChatChatChat ChatChat</h1>
-          </div>
-          <div class="options-container">
-            <button id="attack">Attack</button>
-            <button id="rest">Rest</button>
-            <button id="equipWeapon">Equip Weapon</button>
-          </div>
-        </div>
-      </div>
+        <label for="player-class">Player Class</label>
+        <select name="player-class" id="player-class">
+          <option value="dwarf">Dwarf</option>
+          <option value="elf">Elf</option>
+          <option value="gnome">Gnome</option>
+          <option value="human">Human</option>
+        </select>
+        <button class="start-game">
+          <a href="./pages/game.html">Start Game</a>
+        </button>
+      </form>
     </div>
   </body>
 </html>
