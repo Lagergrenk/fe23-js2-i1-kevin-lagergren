@@ -46,3 +46,5 @@ class GameEngine {
     }
   }
 }
+
+export { GameEngine };
