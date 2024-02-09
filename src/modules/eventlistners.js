@@ -27,7 +27,7 @@ function initEventListeners() {
     console.log("playerName = " + playerName);
     console.log("playerRace = " + playerRace);
 
-    window.location.href = "../../pages/game.html";
+    window.location.href = "/pages/game.html";
   });
 }
 
