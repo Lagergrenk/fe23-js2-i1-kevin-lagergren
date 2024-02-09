@@ -10,10 +10,8 @@ import { Player } from "../Player.js";
 
 class Gnome extends Player {
   constructor() {
-    const backImagePath =
-      "../../../../assets/images/player/gnome-away-facing.webp";
-    const frontImagePath =
-      "../../../../assets/images/player/gnome-front-facing.webp";
+    const backImagePath = "assets/images/player/gnome-away-facing.webp";
+    const frontImagePath = "assets/images/player/gnome-front-facing.webp";
     super("Gnome", 60, 40, 0.8, frontImagePath);
   }
 

@@ -10,10 +10,8 @@ import { Player } from "../Player.js";
 
 class Human extends Player {
   constructor() {
-    const backImagePath =
-      "../../../../assets/images/player/human-away-facing.webp";
-    const frontImagePath =
-      "../../../../assets/images/player/human-front-facing.webp";
+    const backImagePath = "assets/images/player/human-away-facing.webp";
+    const frontImagePath = "assets/images/player/human-front-facing.webp";
     super("Human", 100, 60, 0.9, frontImagePath);
   }
 
