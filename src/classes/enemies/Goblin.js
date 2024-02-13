@@ -16,7 +16,7 @@ import { checkChance } from "../../utils/utils.js";
 
 class Goblin extends Enemy {
   constructor() {
-    const imagePath = "../../../assets/images/enemies/goblin-front-facing.webp";
+    const imagePath = "assets/images/enemies/goblin-front-facing.webp";
     super("Goblin Raider", 50, 5, 0.8, imagePath);
   }
 
@@ -24,9 +24,16 @@ class Goblin extends Enemy {
     const damage = this.damage;
     const hitTwice = this.isHitEnemyTwice();
     if (hitTwice) {
-      return damage * 2;
+      const result = damage * 2;
+      return {
+        damage: result,
+        message: `The goblin strikes you twice for ${result} damage!`,
+      };
     }
-    return damage;
+    return {
+      damage: damage,
+      message: `The goblin strikes you for ${damage} damage!`,
+    };
   }
 
   isHitEnemyTwice() {

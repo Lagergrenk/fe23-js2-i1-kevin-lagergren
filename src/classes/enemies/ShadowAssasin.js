@@ -12,8 +12,7 @@ import { Enemy } from "./Enemy.js";
 
 class ShadowAssasin extends Enemy {
   constructor() {
-    const imagePath =
-      "../../../assets/images/enemies/shadow-assasin-front-facing.webp";
+    const imagePath = "assets/images/enemies/shadowassasin-front-facing.webp";
     super("Shadow Assasin", 60, 40, 0.95, imagePath);
   }
 }

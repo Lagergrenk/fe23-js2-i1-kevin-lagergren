@@ -1,4 +1,5 @@
 import { Enemy } from "./Enemy.js";
+import { checkChance } from "../../utils/utils.js";
 
 /**
  * Elemental Mage
@@ -12,8 +13,7 @@ import { Enemy } from "./Enemy.js";
 
 class ElementalMage extends Enemy {
   constructor() {
-    const imagePath =
-      "../../../assets/images/enemies/elemental-mage-front-facing.webp";
+    const imagePath = "assets/images/enemies/elementalmage-front-facing.png";
     super("Elemental Mage", 80, 30, 0.9, imagePath);
   }
 
@@ -25,3 +25,5 @@ class ElementalMage extends Enemy {
     }
   }
 }
+
+export { ElementalMage };

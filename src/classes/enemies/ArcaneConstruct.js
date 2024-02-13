@@ -12,8 +12,7 @@ import { Enemy } from "./Enemy.js";
 
 class ArcaneConstruct extends Enemy {
   constructor() {
-    const imagePath =
-      "../../../assets/images/enemies/arcane-construct-front-facing.webp";
+    const imagePath = "assets/images/enemies/arcaneconstruct-front-facing.png";
     super("Arcane Construct", 150, 20, 0.85, imagePath);
   }
 

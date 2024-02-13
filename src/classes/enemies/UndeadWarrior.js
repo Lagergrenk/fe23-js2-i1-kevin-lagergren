@@ -1,6 +1,6 @@
 import { Enemy } from "./Enemy.js";
 
-import { checkChance } from "../utils/utils.js";
+import { checkChance } from "../../utils/utils.js";
 
 /**
  * Undead Warrior
@@ -16,8 +16,7 @@ import { checkChance } from "../utils/utils.js";
 
 class UndeadWarrior extends Enemy {
   constructor() {
-    const imagePath =
-      "../../../assets/images/enemies/undead-warrior-front-facing.webp";
+    const imagePath = "assets/images/enemies/undeadwarrior-front-facing.webp";
     super("Undead Warrior", 120, 10, 0.5, imagePath);
   }
 
