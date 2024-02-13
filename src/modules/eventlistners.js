@@ -1,5 +1,6 @@
 import { uiManager } from "./UIManager.js";
-import { gameEngine } from "./gameEngine.js";
+import { pvpGameEngine } from "./GameEngine/PVPGameEngine.js";
+import { pveGameEngine } from "./GameEngine/PVEGameEngine.js";
 
 let gameMode = "";
 let selectedRace = "";
@@ -16,8 +17,10 @@ function initEventListeners() {
       gameMode = e.target.id;
 
       if (gameMode == "pvp") {
+        pvpGameEngine.setGameMode(gameMode);
         console.log("not implemented yet");
       } else {
+        pveGameEngine.setGameMode(gameMode);
         uiManager.showRaceAndNameInput();
         // Default preview
         uiManager.showPlayerRacePreview("human");
@@ -38,8 +41,8 @@ function initEventListeners() {
     e.preventDefault();
     playerName = document.querySelector("#player-name").value;
     document.querySelector("#player-name h1").textContent = playerName;
-    gameEngine.createPlayer(selectedRace);
-    gameEngine.createEnemy();
+    pveGameEngine.createPlayer(selectedRace);
+    pveGameEngine.createComputer();
     uiManager.showGameView();
   });
 
@@ -47,13 +50,13 @@ function initEventListeners() {
   optionsButton.forEach((button) => {
     button.addEventListener("click", (e) => {
       let playerAction = e.target.id;
-      gameEngine.performPlayerAction(playerAction);
+      pveGameEngine.performPlayerAction(playerAction);
     });
   });
 
   const playAgainButton = document.querySelector("#play-again");
   playAgainButton.addEventListener("click", (e) => {
-    gameEngine.resetGame();
+    pveGameEngine.resetGame();
     uiManager.showInitialChoice();
   });
 }

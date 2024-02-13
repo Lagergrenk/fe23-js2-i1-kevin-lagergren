@@ -1,4 +1,5 @@
-import { Human, Elf, Dwarf, Gnome } from "../classes/players/races/index.js";
+import { uiManager } from "../UIManager.js";
+import { GameEngine } from "./GameEngine.js";
 import {
   Goblin,
   ForestTroll,
@@ -6,15 +7,15 @@ import {
   ElementalMage,
   ShadowAssasin,
   UndeadWarrior,
-} from "../classes/enemies/index.js";
-import { uiManager } from "./UIManager.js";
+} from "../../classes/enemies/index.js";
+import { Human, Dwarf, Elf, Gnome } from "../../classes/players/races/index.js";
 
-class GameEngine {
+class PVEGameEngine extends GameEngine {
   constructor() {
+    super();
     this.player = null;
-    this.enemy = null;
+    this.computer = null;
     this.isPlayersTurn = true;
-    this.isGameover = false;
   }
 
   createPlayer(selectedRace, playerName) {
@@ -48,13 +49,13 @@ class GameEngine {
     return enemies[randomIndex];
   }
 
-  createEnemy() {
+  createComputer() {
     if (this.player.level < 5) {
-      const enemy = this.randomEnemy();
-      this.enemy = enemy;
+      const computer = this.randomEnemy();
+      this.computer = computer;
     }
-    uiManager.updateEnemyInfo(this.enemy);
-    uiManager.updateEnemyForBattle(this.enemy);
+    uiManager.updateEnemyInfo(this.computer);
+    uiManager.updateEnemyForBattle(this.computer);
   }
 
   performPlayerAction(playerAction) {
@@ -74,12 +75,12 @@ class GameEngine {
         break;
     }
     setTimeout(() => {
-      if (!this.enemy.isAlive()) {
+      if (!this.computer.isAlive()) {
         this.isGameover = true;
         uiManager.updateChatBoxWithMessage(
-          `You have defeated ${this.enemy.name}!`
+          `You have defeated ${this.computer.name}!`
         );
-        gameEngine.player.levelUp();
+        this.player.levelUp();
         uiManager.updatePlayerInfo(this.player);
         uiManager.showPlayAgainButton();
         return;
@@ -94,15 +95,14 @@ class GameEngine {
       }
 
       this.isPlayersTurn = false;
-      uiManager.updateChatBoxWithMessage(`${this.enemy.name}'s turn...`);
+      uiManager.updateChatBoxWithMessage(`${this.computer.name}'s turn...`);
       this.performEnemyAction();
     }, 2000);
   }
-
   performAttack() {
     const result = this.player.attack();
-    this.enemy.takeDamage(result.damage);
-    uiManager.updateEnemyInfo(this.enemy);
+    this.computer.takeDamage(result.damage);
+    uiManager.updateEnemyInfo(this.computer);
     uiManager.updateChatBoxWithMessage(result.message);
   }
 
@@ -114,8 +114,8 @@ class GameEngine {
   performSpecialAttack() {
     const result = this.player.specialAttack();
     if ("damage" in result) {
-      this.enemy.takeDamage(result.damage);
-      uiManager.updateEnemyInfo(this.enemy);
+      this.computer.takeDamage(result.damage);
+      uiManager.updateEnemyInfo(this.computer);
       uiManager.updateChatBoxWithMessage(result.message);
     } else if ("heal" in result) {
       uiManager.updatePlayerInfo(this.player);
@@ -126,13 +126,13 @@ class GameEngine {
   performEnemyAction() {
     if (this.isGameover) return;
 
-    const result = this.enemy.attack();
+    const result = this.computer.attack();
     this.player.takeDamage(result.damage);
     uiManager.updatePlayerInfo(this.player);
     uiManager.updateChatBoxWithMessage(result.message);
 
     setTimeout(() => {
-      if (!this.enemy.isAlive() || !this.player.isAlive()) {
+      if (!this.computer.isAlive() || !this.player.isAlive()) {
         this.isGameover = true;
         uiManager.updateChatBoxWithMessage("Game Over");
       } else {
@@ -141,19 +141,7 @@ class GameEngine {
       }
     }, 2000);
   }
-
-  resetGame() {
-    this.player = null;
-    this.enemy = null;
-    this.isPlayersTurn = true;
-    this.isGameover = false;
-  }
-
-  playAgain() {
-    this.resetGame();
-    uiManager.showRaceAndNameInput();
-  }
 }
 
-const gameEngine = new GameEngine();
-export { gameEngine };
+const pveGameEngine = new PVEGameEngine();
+export { pveGameEngine };
