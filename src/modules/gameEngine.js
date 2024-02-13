@@ -1,60 +1,159 @@
+import { Human, Elf, Dwarf, Gnome } from "../classes/players/races/index.js";
+import {
+  Goblin,
+  ForestTroll,
+  ArcaneConstruct,
+  ElementalMage,
+  ShadowAssasin,
+  UndeadWarrior,
+} from "../classes/enemies/index.js";
+import { uiManager } from "./UIManager.js";
+
 class GameEngine {
-  constructor(player, enemy, updateUI) {
-    this.player = player;
-    this.enemy = enemy;
-    this.isPlayerTurn = true;
-    this.isGameOver = false;
-    this.updateUI = updateUI;
+  constructor() {
+    this.player = null;
+    this.enemy = null;
+    this.isPlayersTurn = true;
+    this.isGameover = false;
   }
 
-  startGame() {
-    this.nextTurn();
-  }
+  createPlayer(selectedRace, playerName) {
+    const raceClassMap = {
+      human: Human,
+      dwarf: Dwarf,
+      elf: Elf,
+      gnome: Gnome,
+    };
 
-  nextTurn() {
-    if (this.isGameOver) {
-      this.endGame();
-      return;
-    }
-
-    if (this.isPlayerTurn) {
-      this.playerTurn();
+    const RaceClass = raceClassMap[selectedRace];
+    if (RaceClass) {
+      this.player = new RaceClass(playerName);
+      uiManager.updatePlayerInfo(this.player, playerName);
+      uiManager.updatePlayerForBattle(this.player);
     } else {
-      setTimeout(() => this.enemyTurn(), 1000);
-    }
-
-    this.isPlayerTurn = !this.isPlayerTurn;
-    setTimeout(() => this.nextTurn(), 2000);
-  }
-
-  playerTurn() {
-    const damage = this.player.attack();
-    this.enemy.takeDamage(damage);
-    this.checkGameOver();
-    this.updateUI();
-  }
-
-  enemyTurn() {
-    const damage = this.enemy.attack();
-    this.player.takeDamage(damage);
-    this.checkGameOver();
-    this.updateUI();
-  }
-
-  checkGameOver() {
-    if (!this.player.isAlive() || !this.enemy.isAlive()) {
-      this.isGameOver = true;
+      console.error("Invalid race selected:", selectedRace);
     }
   }
 
-  endGame() {
-    if (!this.player.isAlive()) {
-      console.log("Game Over. Player lost.");
-    } else if (!this.enemy.isAlive()) {
-      console.log("Game Over. Player won!");
+  randomEnemy() {
+    const enemies = [
+      new Goblin(),
+      new ForestTroll(),
+      new ArcaneConstruct(),
+      new ElementalMage(),
+      new ShadowAssasin(),
+      new UndeadWarrior(),
+    ];
+    const randomIndex = Math.floor(Math.random() * enemies.length);
+    return enemies[randomIndex];
+  }
+
+  createEnemy() {
+    if (this.player.level < 5) {
+      const enemy = this.randomEnemy();
+      this.enemy = enemy;
     }
-    this.updateUI(true);
+    uiManager.updateEnemyInfo(this.enemy);
+    uiManager.updateEnemyForBattle(this.enemy);
+  }
+
+  performPlayerAction(playerAction) {
+    if (this.isGameover || !this.isPlayersTurn || uiManager.isTyping) return;
+
+    switch (playerAction) {
+      case "attack":
+        this.performAttack();
+        break;
+      case "rest":
+        this.performRest();
+        break;
+      case "special-attack":
+        this.performSpecialAttack();
+        break;
+      default:
+        break;
+    }
+    setTimeout(() => {
+      if (!this.enemy.isAlive()) {
+        this.isGameover = true;
+        uiManager.updateChatBoxWithMessage(
+          `You have defeated ${this.enemy.name}!`
+        );
+        gameEngine.player.levelUp();
+        uiManager.updatePlayerInfo(this.player);
+        uiManager.showPlayAgainButton();
+        return;
+      }
+      if (!this.player.isAlive()) {
+        this.isGameover = true;
+        uiManager.updateChatBoxWithMessage(
+          `Game Over, you have been defeated!`
+        );
+        uiManager.showPlayAgainButton();
+        return;
+      }
+
+      this.isPlayersTurn = false;
+      uiManager.updateChatBoxWithMessage(`${this.enemy.name}'s turn...`);
+      this.performEnemyAction();
+    }, 2000);
+  }
+
+  performAttack() {
+    const result = this.player.attack();
+    this.enemy.takeDamage(result.damage);
+    uiManager.updateEnemyInfo(this.enemy);
+    uiManager.updateChatBoxWithMessage(result.message);
+  }
+
+  performRest() {
+    const result = this.player.rest();
+    uiManager.updatePlayerInfo(this.player);
+    uiManager.updateChatBoxWithMessage(result.message);
+  }
+  performSpecialAttack() {
+    const result = this.player.specialAttack();
+    if ("damage" in result) {
+      this.enemy.takeDamage(result.damage);
+      uiManager.updateEnemyInfo(this.enemy);
+      uiManager.updateChatBoxWithMessage(result.message);
+    } else if ("heal" in result) {
+      uiManager.updatePlayerInfo(this.player);
+      uiManager.updateChatBoxWithMessage(result.message);
+    }
+  }
+
+  performEnemyAction() {
+    if (this.isGameover) return;
+
+    const result = this.enemy.attack();
+    this.player.takeDamage(result.damage);
+    uiManager.updatePlayerInfo(this.player);
+    uiManager.updateChatBoxWithMessage(result.message);
+
+    setTimeout(() => {
+      if (!this.enemy.isAlive() || !this.player.isAlive()) {
+        this.isGameover = true;
+        uiManager.updateChatBoxWithMessage("Game Over");
+      } else {
+        this.isPlayersTurn = true;
+        uiManager.updateChatBoxWithMessage(`${this.player.name}'s turn...`);
+      }
+    }, 2000);
+  }
+
+  resetGame() {
+    this.player = null;
+    this.enemy = null;
+    this.isPlayersTurn = true;
+    this.isGameover = false;
+  }
+
+  playAgain() {
+    this.resetGame();
+    uiManager.showRaceAndNameInput();
   }
 }
 
-export { GameEngine };
+const gameEngine = new GameEngine();
+export { gameEngine };
