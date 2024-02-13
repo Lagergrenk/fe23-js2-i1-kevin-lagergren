@@ -4,28 +4,28 @@ class Entity {
   constructor(name, maxHealth, damage, hitChance, image) {
     this.name = name;
     this.maxHealth = maxHealth;
-    this.health = maxHealth;
+    this.currentHealth = maxHealth;
     this.damage = damage;
     this.hitChance = hitChance;
     this.image = image;
   }
 
   isAlive() {
-    return this.health > 0;
+    return this.currentHealth > 0;
   }
 
-  attack(damage) {
+  attack() {
     if (checkChance(this.hitChance)) {
-      return damage;
+      return this.damage;
     } else {
       return 0;
     }
   }
 
   takeDamage(damage) {
-    this.health -= damage;
-    if (this.health < 0) {
-      this.health = 0;
+    this.currentHealth -= damage;
+    if (this.currentHealth < 0) {
+      this.currentHealth = 0;
     }
   }
 }
