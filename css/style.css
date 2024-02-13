@@ -6,21 +6,13 @@
 
 /* Global variables */
 :root {
-  --primary-color: #8b4513; /* Dark wood or leather color */
-  --background-color-trans: rgba(
-    0,
-    0,
-    0,
-    0.7
-  ); /* Dark wood or leather-like semi-transparent background */
+  --primary-color: #8b4513;
+  --background-color-trans: rgba(0, 0, 0, 0.7);
 }
 
 .btn {
-  background-color: rgba(
-    139,
-    69,
-    19,
-    0.7
+  background-color: var(
+    --primary-color
   ); /* Dark wood or leather-like semi-transparent background */
   color: #f4ecd8; /* Parchment-like text color */
   border: 2px solid #8b4513; /* Dark wood or leather border */
@@ -52,6 +44,13 @@
 }
 
 body {
+  background-image: url("../assets/images/background-image.webp");
+  background-size: cover; /* Cover the entire element */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+}
+
+.player-selection {
   display: grid;
   height: 100vh;
 
@@ -62,11 +61,6 @@ body {
     "header header header"
     "raceButtons playerImage stats"
     ". playerName .";
-
-  background-image: url("../assets/images/background-image.webp");
-  background-size: cover; /* Cover the entire element */
-  background-position: center; /* Center the background image */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
 }
 
 .header {
@@ -92,13 +86,28 @@ body {
   align-items: center;
 
   background-image: url("../assets/images/parchment-paper.webp");
-  background-size: cover; /* Cover the entire element */
-  background-position: center; /* Center the background image */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.player-container {
+.player-selection {
   grid-area: playerImage;
+}
+
+.player-vs-container {
+  grid-area: playerImage;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  background-image: url("../assets/images/parchment-paper.webp");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .player-image {
@@ -157,4 +166,77 @@ body {
 
 .stats p {
   margin: 5px;
+}
+
+.game-wrapper {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.game-container {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 1fr;
+  grid-template-rows: 1fr 1fr 0.8fr;
+  grid-template-areas:
+    "enemy-info enemy-info enemy-sprite"
+    "player-sprite player-info player-info "
+    "chat-container chat-container chat-container";
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  width: 1000px;
+  height: 800px;
+  color: white;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* Grid areas */
+#enemy-info {
+  grid-area: enemy-info;
+}
+
+.image-container {
+  height: 340px;
+}
+.sprite-img {
+  width: 100%;
+  height: 100%;
+}
+
+#player-info {
+  grid-area: player-info;
+}
+
+#enemy-sprite {
+  grid-area: enemy-sprite;
+}
+
+#player-sprite {
+  grid-area: player-sprite;
+}
+
+.chat-container {
+  grid-area: chat-container;
+
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+
+  grid-template-areas: "chat options-container";
+}
+.play-again-container {
+  display: none;
+  grid-area: options-container;
+  justify-content: center;
+  align-items: center;
+}
+.options-container {
+  display: flex;
+  grid-area: options-container;
+  justify-content: center;
+  align-items: center;
 }
