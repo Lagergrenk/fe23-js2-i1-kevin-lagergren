@@ -12,19 +12,17 @@ class Gnome extends Player {
   constructor() {
     const backImagePath = "assets/images/player/gnome-away-facing.webp";
     const frontImagePath = "assets/images/player/gnome-front-facing.webp";
-    super("Gnome", 60, 40, 0.8, frontImagePath);
+    super("Gnome", 60, 40, 0.8, frontImagePath, backImagePath);
   }
 
-  // Special attack heals for 20 health
+  // Special attack heals for 30 health
   specialAttack() {
-    const healAmount = 20;
-    this.health += healAmount;
-
-    if (this.health > this.maxHealth) {
-      this.health = this.maxHealth;
+    this.currentHealth += 30;
+    if (this.currentHealth > this.maxHealth) {
+      this.currentHealth = this.maxHealth;
     }
     return {
-      message: "Gnome heals for 20 health",
+      message: `${this.name} used a special attack and healed for 30 health.`,
     };
   }
 }
