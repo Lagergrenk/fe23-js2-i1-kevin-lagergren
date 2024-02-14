@@ -16,20 +16,16 @@ class PVEGameEngine extends GameEngine {
     this.player = null;
     this.computer = null;
     this.isPlayersTurn = true;
+    this.playerName = "";
   }
 
   createPlayer(selectedRace, playerName) {
-    const raceClassMap = {
-      human: Human,
-      dwarf: Dwarf,
-      elf: Elf,
-      gnome: Gnome,
-    };
-
+    this.playerName = playerName;
+    const raceClassMap = { human: Human, dwarf: Dwarf, elf: Elf, gnome: Gnome };
     const RaceClass = raceClassMap[selectedRace];
     if (RaceClass) {
       this.player = new RaceClass(playerName);
-      uiManager.updatePlayerInfo(this.player, playerName);
+      uiManager.updatePlayerInfo(this.player, this.playerName);
       uiManager.updatePlayerForBattle(this.player);
     } else {
       console.error("Invalid race selected:", selectedRace);
@@ -50,16 +46,14 @@ class PVEGameEngine extends GameEngine {
   }
 
   createComputer() {
-    if (this.player.level < 5) {
-      const computer = this.randomEnemy();
-      this.computer = computer;
-    }
+    this.computer = this.randomEnemy();
+    this.computer;
     uiManager.updateEnemyInfo(this.computer);
     uiManager.updateEnemyForBattle(this.computer);
   }
 
   performPlayerAction(playerAction) {
-    if (this.isGameover || !this.isPlayersTurn || uiManager.isTyping) return;
+    if (this.isActionPrevented()) return;
 
     switch (playerAction) {
       case "attack":
@@ -74,31 +68,9 @@ class PVEGameEngine extends GameEngine {
       default:
         break;
     }
-    setTimeout(() => {
-      if (!this.computer.isAlive()) {
-        this.isGameover = true;
-        uiManager.updateChatBoxWithMessage(
-          `You have defeated ${this.computer.name}!`
-        );
-        this.player.levelUp();
-        uiManager.updatePlayerInfo(this.player);
-        uiManager.showPlayAgainButton();
-        return;
-      }
-      if (!this.player.isAlive()) {
-        this.isGameover = true;
-        uiManager.updateChatBoxWithMessage(
-          `Game Over, you have been defeated!`
-        );
-        uiManager.showPlayAgainButton();
-        return;
-      }
-
-      this.isPlayersTurn = false;
-      uiManager.updateChatBoxWithMessage(`${this.computer.name}'s turn...`);
-      this.performEnemyAction();
-    }, 2000);
+    this.handleTurnEnd();
   }
+
   performAttack() {
     const result = this.player.attack();
     this.computer.takeDamage(result.damage);
@@ -108,19 +80,17 @@ class PVEGameEngine extends GameEngine {
 
   performRest() {
     const result = this.player.rest();
-    uiManager.updatePlayerInfo(this.player);
+    uiManager.updatePlayerInfo(this.player, this.playerName);
     uiManager.updateChatBoxWithMessage(result.message);
   }
+
   performSpecialAttack() {
     const result = this.player.specialAttack();
     if ("damage" in result) {
       this.computer.takeDamage(result.damage);
       uiManager.updateEnemyInfo(this.computer);
-      uiManager.updateChatBoxWithMessage(result.message);
-    } else if ("heal" in result) {
-      uiManager.updatePlayerInfo(this.player);
-      uiManager.updateChatBoxWithMessage(result.message);
     }
+    uiManager.updateChatBoxWithMessage(result.message);
   }
 
   performEnemyAction() {
@@ -128,16 +98,48 @@ class PVEGameEngine extends GameEngine {
 
     const result = this.computer.attack();
     this.player.takeDamage(result.damage);
-    uiManager.updatePlayerInfo(this.player);
+    uiManager.updatePlayerInfo(this.player, this.playerName);
     uiManager.updateChatBoxWithMessage(result.message);
+    this.handleTurnEnd();
+  }
 
+  endGame() {
+    this.isGameover = true;
+    const message = !this.player.isAlive()
+      ? "Game Over, you have been defeated!"
+      : `You have defeated ${this.computer.name}!`;
+    uiManager.updateChatBoxWithMessage(message);
+    if (this.player.isAlive()) {
+      this.player.levelUp();
+      uiManager.updatePlayerInfo(this.player, this.playerName);
+    }
+    uiManager.showPlayAgainButton();
+  }
+
+  switchTurns() {
+    this.isPlayersTurn = !this.isPlayersTurn;
+    const nextTurnMessage = this.isPlayersTurn
+      ? `${this.player.name}'s turn...`
+      : `${this.computer.name}'s turn...`;
+    uiManager.updateChatBoxWithMessage(nextTurnMessage);
+
+    if (!this.isPlayersTurn) {
+      setTimeout(() => {
+        this.performEnemyAction();
+      }, 2000);
+    }
+  }
+
+  isActionPrevented() {
+    return this.isGameover || !this.isPlayersTurn || uiManager.isTyping;
+  }
+
+  handleTurnEnd() {
     setTimeout(() => {
       if (!this.computer.isAlive() || !this.player.isAlive()) {
-        this.isGameover = true;
-        uiManager.updateChatBoxWithMessage("Game Over");
+        this.endGame();
       } else {
-        this.isPlayersTurn = true;
-        uiManager.updateChatBoxWithMessage(`${this.player.name}'s turn...`);
+        this.switchTurns();
       }
     }, 2000);
   }
