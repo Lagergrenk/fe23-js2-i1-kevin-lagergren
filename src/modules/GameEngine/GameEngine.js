@@ -2,10 +2,12 @@ import { uiManager } from "../UIManager.js";
 
 class GameEngine {
   constructor() {
+    this.gameMode = "";
     this.isGameover = false;
   }
 
   resetGame() {
+    this.gameMode = "";
     this.isGameover = false;
   }
 

@@ -174,6 +174,7 @@ class UIManager {
       "label[for='player-name']"
     );
     playerNameLabel.textContent = `Player ${playerNumber} Name:`;
+    formSection.querySelector("#player-name").value = "";
   }
   show(...elements) {
     elements.forEach((element) => (element.style.display = "flex"));

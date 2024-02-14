@@ -97,9 +97,10 @@ class PVEGameEngine extends GameEngine {
     if (this.isGameover) return;
 
     const result = this.computer.attack();
+    uiManager.updateChatBoxWithMessage(result.message);
     this.player.takeDamage(result.damage);
     uiManager.updatePlayerInfo(this.player, this.playerName);
-    uiManager.updateChatBoxWithMessage(result.message);
+
     this.handleTurnEnd();
   }
 

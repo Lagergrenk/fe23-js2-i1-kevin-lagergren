@@ -100,7 +100,11 @@ class PVPGameEngine extends GameEngine {
     const opponent = player === this.player1 ? this.player2 : this.player1;
     const result = player.specialAttack();
     opponent.takeDamage(result.damage);
-    uiManager.updateEnemyInfo(opponent);
+    if (opponent === this.player1) {
+      uiManager.updatePlayerInfo(opponent, this.player1Name);
+    } else {
+      uiManager.updateEnemyInfo(opponent, this.player2Name);
+    }
     uiManager.updateChatBoxWithMessage(result.message);
   }
 
