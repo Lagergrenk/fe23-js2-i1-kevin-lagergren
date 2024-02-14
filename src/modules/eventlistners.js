@@ -26,6 +26,7 @@ function handleGameModeSelection() {
 
       if (gameMode === "pvp") {
         currentGameEngine = pvpGameEngine;
+        currentGameEngine.gameMode = "pvp";
         console.log("PVP mode selected");
         uiManager.showRaceAndNameInput();
         uiManager.changePlayerLabelForPVP("1");
@@ -33,7 +34,9 @@ function handleGameModeSelection() {
       } else {
         currentGameEngine = pveGameEngine;
         console.log("PVE mode selected");
+        currentGameEngine.gameMode = "pve";
         uiManager.showRaceAndNameInput();
+        uiManager.changePlayerLabelForPVP("");
         uiManager.showPlayerRacePreview("human");
       }
     });
@@ -51,6 +54,7 @@ function handlePlayerFormSubmission() {
       pveGameEngine.createPlayer(player1Race, player1Name);
       pveGameEngine.createComputer();
       uiManager.showGameView();
+      uiManager.updateChatBoxWithMessage("You're fighting a random enemy !");
     } else if (!isPlayerInfoCollected) {
       player1Name = playerNameInput;
       isPlayerInfoCollected = true;
